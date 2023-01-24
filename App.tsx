@@ -1,8 +1,11 @@
 import PriceScreen from './src/components/priceScreen/PriceScreen';
+import { ErrorHandler } from './src/components/errorBoundary/ErrorBoundary';
 
 const App = () => {
   return (
-    <PriceScreen />
+    <ErrorHandler>
+      <PriceScreen />
+    </ErrorHandler>
   );
 }
 
