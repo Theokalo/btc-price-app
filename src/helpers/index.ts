@@ -13,8 +13,8 @@ const convertBTCToCurrency = async (amount:number, currency:string) => {
 export const getAllCurrencies = async () => {
     let currencies:Array<Record<string, string>> = [];
     const response = await request(`https://api.getgeoapi.com/v2/currency/convert?api_key=a6d2b23eb2ae0f35e5b6aa0bff7541be101bccb6&from=EUR&amount=10&format=json`,'GET');
-    Object.keys(response?.rates).forEach(function(key, index) {
-        currencies.push({key, value:key})
+    Object.keys(response?.rates).forEach( (key, index) => {
+        currencies.push({key:index.toString() , value:key})
     });
 
     return currencies;
