@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Button, Image, SafeAreaView, Alert } from "react-native";
+import { Text, View, Button, Image, SafeAreaView, Alert, ActivityIndicator } from "react-native";
 import { SelectList } from 'react-native-dropdown-select-list'
 import { styles } from "./style";
 import { getBTCPrice, getAllCurrencies } from "../../helpers";
@@ -9,7 +9,7 @@ const PriceScreen = () => {
     const [currency, setCurrency] = useState<string>("EUR");
     const [currencyToDisplay, setCurrencyToDisplay] = useState<string>('EUR');
     const [currencies, setCurrencies] = useState<Array<Record<string, string>>>([{key:'EUR', value:'EUR'}]);
-    const [timeOfThePrice, setTimeOfThePrice] = useState<string>("");
+    const [timeOfThePrice, setTimeOfThePrice] = useState<string>("Unknown");
     const [loading, setLoading] = useState<boolean>(false);
 
     // get the available currencies and the btc amount
@@ -31,8 +31,12 @@ const PriceScreen = () => {
         setCurrencyToDisplay("");
 
         const res = await getBTCPrice(currency);
-        if(!res.price || !res.timestamp)
+        if(!await res.price || !res.timestamp){
             alertBox();
+            setBTCPrice("Error...");
+            setLoading(false);
+            return;
+        }
 
         setBTCPrice(await res.price);
         setTimeOfThePrice(res.timestamp);
@@ -56,7 +60,7 @@ const PriceScreen = () => {
             </View>
             <View testID="results_container_id" style={styles.resultContainer}>
                 <View testID="time_id" style={styles.resultsItemsContainer}>
-                    <Text style={styles.timeTitle}>Time of the price: </Text>
+                    <Text style={styles.timeTitle}>DateTime: </Text>
                     <Text style={styles.time}>{timeOfThePrice}</Text>
                 </View>
                 <View testID="price_id" style={styles.resultsItemsContainer}>
@@ -64,6 +68,9 @@ const PriceScreen = () => {
                     <Text style={styles.price}>{btcprice} {currencyToDisplay}</Text>
                 </View>
             </View>
+            {loading && 
+                <ActivityIndicator size="small" color="#F7931A" />
+            }
             <View testID="currencies_list_id">
                 <Text style={styles.currencyListTitle}>Change currency: </Text>
                 <SelectList 
