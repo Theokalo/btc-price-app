@@ -54,27 +54,29 @@ const PriceScreen = () => {
                     source={require('../../assets/btcImg.png')}
                 />
             </View>
-            <View testID="results_container_id" style={{ flex: 0.2, justifyContent: "center", alignItems: 'center', width: '90%'}}>
-                <View testID="time_id" style={{flexDirection: 'row', alignItems:'flex-end'}}>
+            <View testID="results_container_id" style={styles.resultContainer}>
+                <View testID="time_id" style={styles.resultsItemsContainer}>
                     <Text style={styles.timeTitle}>Time of the price: </Text>
                     <Text style={styles.time}>{timeOfThePrice}</Text>
                 </View>
-                <View testID="price_id" style={{flexDirection: 'row', alignItems:'flex-end'}}>
+                <View testID="price_id" style={styles.resultsItemsContainer}>
                     <Text style={styles.priceTitle}>Price of BTC: </Text>
                     <Text style={styles.price}>{btcprice} {currencyToDisplay}</Text>
                 </View>
             </View>
-            <View testID="currencies_list_id" style={{justifyContent: "center"}}>
+            <View testID="currencies_list_id">
+                <Text style={styles.currencyListTitle}>Change currency: </Text>
                 <SelectList 
                     setSelected={(val) => setCurrency(val)} 
                     data={currencies} 
+                    defaultOption={{key: currency, value: currency}}
                     save="value"
                     search={true} 
                     boxStyles={{width:200, backgroundColor:'#fff'}}
                     dropdownTextStyles={{color:'#F7931A'}}
                 />
             </View>
-            <View testID="btn_id" style={{flex: 0.1, justifyContent: "center"}}>
+            <View testID="btn_id" style={styles.btnContainer}>
                 <Button
                     title={currency === currencyToDisplay ? 'Update' : "Get Price"}
                     onPress={getTheAmount}

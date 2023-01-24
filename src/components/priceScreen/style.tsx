@@ -25,8 +25,27 @@ export const styles = StyleSheet.create({
         fontWeight: '700',
         color: '#F7931A',
     },
+    currencyListTitle: {
+      fontSize: 20,
+      color: '#fff',
+      paddingBottom: 10
+    },
     logo: {
       width: 66,
       height: 66,
     },
+    resultContainer: {
+      flex: 0.2, 
+      justifyContent: "center", 
+      alignItems: 'center', 
+      width: '90%'
+    },
+    resultsItemsContainer: {
+      flexDirection: 'row', 
+      alignItems:'flex-end'
+    },
+    btnContainer: {
+      flex: 0.1, 
+      justifyContent: "center"
+    }
   });
